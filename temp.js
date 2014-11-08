@@ -5,13 +5,13 @@ var canvas = d3.select("body").append("svg")
 // var circle = canvas.append("circle").attr({"cx" : 100, "cy" : 100, "r" : 10});  
 // var enemyData = new Array(20);
 var enemyData = d3.range(1,21)
-var enemies = canvas.selectAll("circle").data(enemyData).enter()
+var enemies = canvas.selectAll("enemies").data(enemyData).enter()
               .append("circle")
               .attr({"cx" : function(d, i) {return i * 50}, "cy" : function(d, i){ return i * 50}, "r" : 10});
 
 var player = canvas.selectAll("player").data([1])
-             .enter().append("rect")
-             .attr({"x" : function(d, i) {return 300}, "y" : function(d, i){ return 300}, "width" : 20, "height" :20, "fill" : "blue"});
+             .enter().append("circle")
+             .attr({"cx" : function(d, i) {return 300}, "cy" : function(d, i){ return 300}, "r" : 10, "fill" : "blue"});
 
 var randomizer = function(numPixels) {
   return Math.floor( Math.random() * numPixels )
@@ -25,10 +25,11 @@ setInterval( function() {
 canvas.on("mousemove", function() {
   var mouseCoord = d3.mouse(this);
 
-  //why doesn't it work without a d3 circle/rect? it just looks for html tag tag
-  canvas.select('rect').attr({"x" : mouseCoord[0], "y" : mouseCoord[1]});
+  canvas.selectAll('player').attr({"cx" : mouseCoord[0], "cy" : mouseCoord[1]});
 
 });
+
+
 
 // var svg_track = d3.select('#track_cursor_svg');
 // svg_track.on("mousemove", function() {
