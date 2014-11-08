@@ -19,8 +19,8 @@ var randomizer = function(numPixels) {
 setInterval( function() {
   enemies.transition().duration(3000).attr({"cx" : function() { return randomizer(1000) },
                                           "cy" : function() { return randomizer(1000) }, 
-                                          "r" : 10});
-}, 3000) 
+                                          "r" : 10})
+}, 3000);
 
 canvas.on("mousemove", function() {
   var mouseCoord = d3.mouse(this);
