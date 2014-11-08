@@ -30,29 +30,32 @@ setInterval( function() {
     .style('fill', color(Math.floor((Math.random()*20)+1)));
 }, 3000) 
 
+
+var mouseCoord = [0,0];
+canvas.on("mousemove", function() {
+  mouseCoord = d3.mouse(this);
+  //why doesn't it work without a d3 circle/rect? it just looks for html tag tag
+  canvas.select('#player').attr({"cx" : mouseCoord[0], "cy" : mouseCoord[1]});
+});
+
 var score = 0;
 setInterval( function() {
   // var mouseCoord = d3.mouse(this);
   d3.selectAll('.enemies').each( function(d, i) {
-    // if (this !== null) {
-      console.log( d3.select(this).attr("cx") );
-    // }
-  })
+    var enemyX = d3.select(this).attr("cx");
+    var enemyY =  d3.select(this).attr("cy");
+    if ( Math.abs(enemyX - mouseCoord[0]) <= 20 && Math.abs(enemyY - mouseCoord[1]) <= 15)  {
+      alert("Yay!");
+    }
+  });
 
-  d3.selectAll('.current').text("Current Score: " + score)
+  d3.selectAll('.current').text("Current Score: " + score);
   score++;
   // enemies.forEach(function(element, i, enemies) {
   //   console.log(element.attr('cx'))
   // })
   
   // console.log(d3.select('.enemies').attr('cx'));
-}, 100);
+}, 15);
 
 // console.log(d3.select(".mynode").attr("cx"));
-
-var mouseCoord;
-canvas.on("mousemove", function() {
-  mouseCoord = d3.mouse(this);
-  //why doesn't it work without a d3 circle/rect? it just looks for html tag tag
-  canvas.select('#player').attr({"cx" : mouseCoord[0], "cy" : mouseCoord[1]});
-});
